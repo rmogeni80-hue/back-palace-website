@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back Palace | Sofas and Arts</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+
+        /* Top Header Styles */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .search-bar {
+            display: flex;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            overflow: hidden;
+            width: 40%;
+        }
+
+        .search-bar input {
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            background-color: #b8860b;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .delivery-badge {
+            background-color: #333;
+            color: #b8860b;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid #b8860b;
+        }
+
+        /* CART ICON STYLES */
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            background: none;
+            border: none;
+            position: relative;
+            margin-left: 10px;
+        }
+
+        .cart-icon:hover {
+            color: #b8860b;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: #d32f2f;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .whatsapp-contact a {
+            text-decoration: none;
+            color: #25D366;
+            font-weight: bold;
+            border: 2px solid #25D366;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .whatsapp-contact a:hover {
+            background-color: #25D366;
+            color: white;
+        }
+
+        /* Navigation Menu Styles */
+        .main-nav {
+            background-color: white;
+            padding: 0 40px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .main-nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 15px 0;
+            display: inline-block;
+            font-size: 18px;
+        }
+
+        .main-nav ul li a.active {
+            color: #b8860b;
+            border-bottom: 3px solid #b8860b;
+            font-weight: bold;
+        }
+
+        /* CATEGORY DROPDOWN STYLES */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 10;
+            border-radius: 5px;
+            top: 100%;
+        }
+
+        .dropdown-menu li a {
+            color: #333 !important;
+            padding: 12px 16px !important;
+            text-decoration: none;
+            display: block !important;
+            border-bottom: 1px solid #eee;
+            font-size: 16px !important;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #f1f1f1;
+            color: #b8860b !important;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Product Grid Styles */
+        .product-container {
+            padding: 40px;
+            flex: 1; 
+        }
+
+        .product-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .product-image {
+            height: 250px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: bold;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tags span {
+            font-size: 12px;
+            color: #b8860b;
+            border: 1px solid #b8860b;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #b8860b; 
+            margin-bottom: 15px;
+        }
+
+        /* BUTTON STYLES */
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cart-btn {
+            display: block;
+            text-align: center;
+            background-color: #b8860b;
+            color: white;
+            border: 2px solid #b8860b;
+            padding: 10px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .cart-btn:hover {
+            background-color: #a37609;
+        }
+
+        .inquiry-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background-color: white;
+            color: #333;
+            border: 2px solid #333;
+            padding: 10px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .inquiry-btn:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Location Section Styles */
+        .location-section {
+            background-color: #222;
+            color: white;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .location-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .location-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .location-box h3 {
+            color: #b8860b;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .location-box p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .map-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #b8860b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .map-btn:hover {
+            background-color: #a37609;
+        }
+
+        /* --- SHOPPING CART SIDEBAR STYLES --- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px; 
+            width: 350px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0; 
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background-color: #f8f9fa;
+        }
+
+        .cart-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .close-cart:hover {
+            color: #d32f2f;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .cart-item p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .cart-item .item-price {
+            color: #b8860b;
+            font-weight: bold;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            background-color: #f8f9fa;
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .checkout-btn:hover {
+            background-color: #1ebc57;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header class="top-header">
+        <div class="logo">
+            <span style="color: #b8860b; font-size: 24px; font-weight: bold;">Back Palace</span><br>
+            <span style="font-size: 12px; color: #666;">Sofas and Arts</span>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search sofas, arts...">
+            <button onclick="filterProducts()">Search</button>
+        </div>
+
+        <div class="header-right">
+            <div class="delivery-badge">🚚 Countrywide Delivery</div>
+            
+            <div class="whatsapp-contact">
+                <a href="https://wa.me/254110448044" target="_blank" rel="noopener noreferrer">
+                    WhatsApp: 0110448044
+                </a>
+            </div>
+
+            <button class="cart-icon" onclick="toggleCart()">
+                🛒 <span id="cartCount" class="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- NAVIGATION MENU -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            
+            <li class="dropdown">
+                <a href="#">Categories ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Living Room Sofas</a></li>
+                    <li><a href="#">Outdoor Furniture</a></li>
+                    <li><a href="#">Wall Art & Paintings</a></li>
+                    <li><a href="#">Home Decor</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="#">Arts & Decor</a></li>
+            <li><a href="#location">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="product-container">
+        <h2 id="collectionTitle">Our Collection</h2>
+        
+        <div class="product-grid" id="productGrid">
+            <p style="color: #666; font-style: italic;">Loading products from database...</p>
+        </div>
+    </main>
+
+    <!-- LOCATION & CONTACT SECTION -->
+    <section class="location-section" id="location">
+        <div class="location-container">
+            
+            <div class="location-box">
+                <h3>Visit Our Shop</h3>
+                <p>Back Palace Sofas and Arts<br>
+                Kasarani Matenety<br>
+                Nairobi, Kenya</p>
+                <a href="https://maps.google.com/?q=Kasarani+Matenety+Nairobi" target="_blank" class="map-btn">Get Directions</a>
+            </div>
+
+            <div class="location-box">
+                <h3>Contact Us</h3>
+                <p><strong>WhatsApp:</strong> 0110448044</p>
+                <p><strong>Call Us:</strong> 0110448044</p>
+                <p><strong>Delivery:</strong> We deliver countrywide!</p>
+            </div>
+
+            <div class="location-box">
+                <h3>Opening Hours</h3>
+                <p><strong>Monday - Sunday:</strong> Open 24/7</p>
+                <p>Visit us anytime!</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p style="text-align:center; color:#888; margin-top:20px;">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">KSh 0</span>
+            </div>
+            <a href="#" id="checkoutBtn" class="checkout-btn" onclick="checkoutWhatsApp(event)">Checkout via WhatsApp</a>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // --- 1. SUPABASE SETUP ---
+        const SUPABASE_URL = 'https://ojqfzxxdbyqrimajvbf.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_Wi2ujbJ1ZxtRDvnx_MN6qA_wz1-I7OJ';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let allProducts = []; 
+        let cart = [];        
+
+        // --- 2. FETCH PRODUCTS FROM DATABASE ---
+        async function fetchProducts() {
+            let { data: products, error } = await supabaseClient.from('products').select('*');
+
+            if (error) {
+                console.error('Error fetching products:', error);
+                document.getElementById('productGrid').innerHTML = '<p>Error loading products.</p>';
+                return;
+            }
+
+            allProducts = products; 
+            renderProducts(allProducts);
+        }
+
+        // --- 3. RENDER PRODUCT CARDS ---
+        function renderProducts(productsToDisplay) {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = ''; 
+
+            if (productsToDisplay.length === 0) {
+                productGrid.innerHTML = '<p style="padding:20px;">No products found.</p>';
+                return;
+            }
+
+            productsToDisplay.forEach(product => {
+                let imageHTML = product.image_url 
+                    ? `<img src="${product.image_url}" class="product-image" alt="${product.name}">` 
+                    : `<div class="product-image">Image Coming Soon</div>`;
+
+                const card = `
+                    <div class="product-card">
+                        ${imageHTML}
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <div class="tags"><span>Premium</span></div>
+                            <p class="price">${product.price}</p>
+                            <div class="button-group">
+                                <button class="cart-btn" onclick='addToCart(${JSON.stringify(product)})'>Add to Cart 🛒</button>
+                                <a href="https://wa.me/254110448044?text=Hello%20Back%20Palace,%20I%20am%20interested%20in%20the%20${product.name}" target="_blank" class="inquiry-btn">Inquire</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                productGrid.innerHTML += card;
+            });
+        }
+
+        // --- 4. SEARCH BAR LOGIC ---
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtered = allProducts.filter(product => 
+                product.name.toLowerCase().includes(searchTerm)
+            );
+
+            document.getElementById('collectionTitle').innerText = 
+                searchTerm ? `Search Results for "${searchTerm}"` : 'Our Collection';
+
+            renderProducts(filtered);
+        }
+
+        // Trigger search when pressing Enter
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') { filterProducts(); }
+        });
+
+        // --- 5. SHOPPING CART LOGIC ---
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+        }
+
+        function addToCart(product) {
+            cart.push(product);
+            updateCartUI();
+            document.getElementById('cartSidebar').classList.add('open');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1); 
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartCount.innerText = cart.length;
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">Your cart is empty.</p>';
+                cartTotal.innerText = 'KSh 0';
+                return;
+            }
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                const priceNumber = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+                total += priceNumber;
+
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <p><strong>${item.name}</strong></p>
+                            <p class="item-price">${item.price}</p>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+            });
+            cartTotal.innerText = `KSh ${total.toLocaleString()}`;
+        }
+
+        // --- 6. WHATSAPP CHECKOUT LOGIC ---
+        function checkoutWhatsApp(event) {
+            event.preventDefault(); 
+
+            if (cart.length === 0) {
+                alert("Your cart is empty! Add some items first.");
+                return;
+            }
+
+            let message = "Hello Back Palace, I would like to order the following items:\n\n";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - ${item.price}\n`;
+                const priceNumber = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+                total += priceNumber;
+            });
+
+            message += `\nTotal: KSh ${total.toLocaleString()}\n\nPlease let me know how to proceed with payment and delivery.`;
+
+            window.open(`https://wa.me/254110448044?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // --- 7. INITIALIZE PAGE ---
+        fetchProducts(); 
+    </script>
+</body>
+</html>
